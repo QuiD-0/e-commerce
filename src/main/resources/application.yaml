@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: commerce
+  profiles:
+    active: local
+  config:
+    import: optional:configserver:http://130.162.136.116:8888

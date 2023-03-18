@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: commerce
+    image: mysql:8.0.30
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_DATABASE=commerce
+      - MYSQL_USER=local_user
+      - MYSQL_PASSWORD=LOCAL_TEST
+      - MYSQL_ROOT_PASSWORD=LOCAL_TEST
+      - TZ=Asia/Seoul
+    command:
+      - --character-set-server=utf8
+      - --collation-server=utf8_general_ci
+  redis-master:
+    hostname: redis-master
+    container_name: redis-master
+    image: bitnami/redis:6.2.6
+    environment:
+      - REDIS_REPLICATION_MODE=master
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6379:6379
+
+  redis-slave-1:
+    hostname: redis-slave-1
+    container_name: redis-slave-1
+    image: bitnami/redis:6.2.6
+    environment:
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis-master
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6480:6379
+    depends_on:
+      - redis-master
+
+  redis-slave-2:
+    hostname: redis-slave-2
+    container_name: redis-slave-2
+    image: bitnami/redis:6.2.6
+    environment:
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis-master
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6481:6379
+    depends_on:
+      - redis-master
+      - redis-slave-1
+
+  redis-sentinel-1:
+    hostname: redis-sentinel-1
+    container_name: redis-sentinel-1
+    image: bitnami/redis-sentinel:6.2.6
+    environment:
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=3000
+      - REDIS_MASTER_HOST=redis-master
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_SET=master-name
+      - REDIS_SENTINEL_QUORUM=2
+    depends_on:
+      - redis-master
+      - redis-slave-1
+      - redis-slave-2
+    ports:
+      - 26379:26379
+
+  redis-sentinel-2:
+    hostname: redis-sentinel-2
+    container_name: redis-sentinel-2
+    image: bitnami/redis-sentinel:6.2.6
+    environment:
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=3000
+      - REDIS_MASTER_HOST=redis-master
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_SET=master-name
+      - REDIS_SENTINEL_QUORUM=2
+    depends_on:
+      - redis-master
+      - redis-slave-1
+      - redis-slave-2
+    ports:
+      - 26380:26379
+
+  redis-sentinel-3:
+    hostname: redis-sentinel-3
+    container_name: redis-sentinel-3
+    image: bitnami/redis-sentinel:6.2.6
+    environment:
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=3000
+      - REDIS_MASTER_HOST=redis-master
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_SET=master-name
+      - REDIS_SENTINEL_QUORUM=2
+    depends_on:
+      - redis-master
+      - redis-slave-1
+      - redis-slave-2
+    ports:
+      - 26381:26379
