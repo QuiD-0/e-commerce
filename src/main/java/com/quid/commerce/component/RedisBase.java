@@ -1,6 +1,7 @@
 package com.quid.commerce.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.quid.commerce.product.domain.Product;
 import java.time.Duration;
 import java.util.Optional;
 import java.util.Set;
@@ -32,8 +33,11 @@ public class RedisBase {
         redisTemplate.delete(key);
     }
 
-    public <T> Set getZsetData(String key){
-        return redisTemplate.opsForZSet().rangeWithScores(key, 0,9);
+    public <T> Set getZsetData(String key) {
+        return redisTemplate.opsForZSet().rangeWithScores(key, 0, 9);
     }
 
+    public void setZsetData(Product product) {
+        redisTemplate.opsForZSet().add(product.getProductGroupId(), product.getProductId(), product.getPrice());
+    }
 }
