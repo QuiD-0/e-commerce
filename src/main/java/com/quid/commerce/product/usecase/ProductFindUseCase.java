@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 public interface ProductFindUseCase {
 
-    Set getZsetValue(String key);
+    Set getSortedProductList(String key);
 
 
     @Service
@@ -17,7 +17,7 @@ public interface ProductFindUseCase {
         private final ProductRepository productRepository;
 
         @Override
-        public Set getZsetValue(String key) {
+        public Set getSortedProductList(String key) {
             return productRepository.getZsetValue(key);
         }
     }

@@ -20,7 +20,7 @@ public class ProductController {
 
     @GetMapping
     public Object getZsetValue(String key) {
-        return productFindUseCase.getZsetValue(key);
+        return productFindUseCase.getSortedProductList(key);
     }
 
     @PostMapping
