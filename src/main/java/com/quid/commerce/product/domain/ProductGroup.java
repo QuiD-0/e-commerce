@@ -1,12 +1,25 @@
 package com.quid.commerce.product.domain;
 
 import java.util.List;
+
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Getter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductGroup {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String productGroupId;
+
+    @OneToMany(mappedBy = "productGroup", cascade = CascadeType.ALL)
     private List<Product> productList;
 
     private ProductGroup(String productGroupId, List<Product> productList) {

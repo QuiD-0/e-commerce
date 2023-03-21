@@ -17,6 +17,7 @@ public interface ProductRepository {
     class ProductRepositoryImpl implements ProductRepository {
 
         private final RedisProductRepository redisProductRepository;
+        private final JpaProductRepository jpaProductRepository;
 
         @Override
         public Set<SortedProductResponse> getZsetValue(String key) {
@@ -26,6 +27,7 @@ public interface ProductRepository {
         @Override
         public void saveProduct(Product product) {
             redisProductRepository.setZsetValue(product);
+            jpaProductRepository.save(product);
         }
     }
 }

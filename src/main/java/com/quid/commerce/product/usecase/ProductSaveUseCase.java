@@ -17,6 +17,7 @@ public interface ProductSaveUseCase {
 
         @Override
         public void createProduct(Product product) {
+            //product group 찾기 없으면 만들기
             productRepository.saveProduct(product);
         }
 
