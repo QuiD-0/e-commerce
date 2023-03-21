@@ -3,8 +3,10 @@ package com.quid.commerce.component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quid.commerce.product.domain.Product;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -33,8 +35,10 @@ public class RedisBase {
         redisTemplate.delete(key);
     }
 
-    public <T> Set getZsetData(String key) {
-        return redisTemplate.opsForZSet().rangeWithScores(key, 0, 9);
+    public <T> Set<T> getZsetData(String key, Class<T> classType) {
+        Set set = redisTemplate.opsForZSet().rangeWithScores(key, 0, 9);
+        return (Set) set.stream().map(object -> objectMapper.convertValue(object, classType))
+                .collect(Collectors.toSet());
     }
 
     public void setZsetData(Object key, Object value, double score) {

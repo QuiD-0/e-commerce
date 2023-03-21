@@ -12,8 +12,8 @@ public class RedisProductRepository {
 
     private final RedisBase redisBase;
 
-    public Set getZsetValue(String key) {
-        return redisBase.getZsetData(key);
+    public <T> Set<T> getZsetValue(String key, Class<T> classType) {
+        return redisBase.getZsetData(key, classType);
     }
 
     public void setZsetValue(Product product) {
