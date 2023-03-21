@@ -37,7 +37,7 @@ public class RedisBase {
         return redisTemplate.opsForZSet().rangeWithScores(key, 0, 9);
     }
 
-    public void setZsetData(Product product) {
-        redisTemplate.opsForZSet().add(product.getProductGroupId(), product.getProductId(), product.getPrice());
+    public void setZsetData(Object key, Object value, double score) {
+        redisTemplate.opsForZSet().add(key, value, score);
     }
 }

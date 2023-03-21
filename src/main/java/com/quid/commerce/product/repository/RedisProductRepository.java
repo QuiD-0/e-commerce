@@ -17,6 +17,6 @@ public class RedisProductRepository {
     }
 
     public void setZsetValue(Product product) {
-        redisBase.setZsetData(product);
+        redisBase.setZsetData(product.getProductGroupId(),product.getProductId(), product.getPrice());
     }
 }
