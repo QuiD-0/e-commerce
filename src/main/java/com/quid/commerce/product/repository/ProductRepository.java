@@ -13,6 +13,8 @@ public interface ProductRepository {
 
     void saveProduct(Product product);
 
+    void updateProductPrice(Long productId, int price);
+
     @Repository
     @RequiredArgsConstructor
     class ProductRepositoryImpl implements ProductRepository {
@@ -29,6 +31,15 @@ public interface ProductRepository {
         public void saveProduct(Product product) {
             Product savedProduct = jpaProductRepository.save(product);
             redisProductRepository.setZsetValue(savedProduct);
+        }
+
+        @Override
+        public void updateProductPrice(Long productId, int price) {
+            jpaProductRepository.findById(productId)
+                .ifPresent(product -> {
+                    product.updatePrice(price);
+                    redisProductRepository.setZsetValue(product);
+                });
         }
     }
 }
