@@ -3,6 +3,7 @@ package com.quid.commerce.product.repository;
 import com.quid.commerce.product.domain.Product;
 import com.quid.commerce.product.repository.jpa.JpaProductRepository;
 import com.quid.commerce.product.repository.redis.RedisProductRepository;
+import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,9 @@ public interface ProductRepository {
 
     void saveProduct(Product product);
 
-    void updateProductPrice(Long productId, int price);
+    void updateProductPrice(Product product, int price);
+
+    Optional<Product> findById(Long productId);
 
     @Repository
     @RequiredArgsConstructor
@@ -34,12 +37,14 @@ public interface ProductRepository {
         }
 
         @Override
-        public void updateProductPrice(Long productId, int price) {
-            jpaProductRepository.findById(productId)
-                .ifPresent(product -> {
-                    product.updatePrice(price);
-                    redisProductRepository.setZsetValue(product);
-                });
+        public void updateProductPrice(Product product, int price) {
+            product.updatePrice(price);
+            redisProductRepository.setZsetValue(product);
+        }
+
+        @Override
+        public Optional<Product> findById(Long productId) {
+            return jpaProductRepository.findById(productId);
         }
     }
 }

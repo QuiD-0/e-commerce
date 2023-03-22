@@ -1,6 +1,7 @@
 package com.quid.commerce.product.usecase;
 
 import com.quid.commerce.product.controller.dto.UpdateProductPriceRequest;
+import com.quid.commerce.product.domain.Product;
 import com.quid.commerce.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,10 @@ public interface ProductUpdateUseCase {
 
         @Override
         public void updateProduct(UpdateProductPriceRequest request) {
-            productRepository.updateProductPrice(request.productId(), request.price());
+            Product product = productRepository.findById(request.productId())
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+            productRepository.updateProductPrice(product, request.price());
         }
 
     }
