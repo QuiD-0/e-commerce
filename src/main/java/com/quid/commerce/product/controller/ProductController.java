@@ -1,7 +1,6 @@
 package com.quid.commerce.product.controller;
 
 import com.quid.commerce.product.controller.dto.ProductCreateRequest;
-import com.quid.commerce.product.controller.dto.SortedProductResponse;
 import com.quid.commerce.product.usecase.ProductFindUseCase;
 import com.quid.commerce.product.usecase.ProductSaveUseCase;
 import java.util.Set;
@@ -21,13 +20,13 @@ public class ProductController {
     private final ProductSaveUseCase productSaveUseCase;
 
     @GetMapping
-    public Set<SortedProductResponse> getSortedProductList(String key) {
+    public Set getSortedProductList(String key) {
         return productFindUseCase.getSortedProductList(key);
     }
 
     @PostMapping
     public void setZsetValue(@RequestBody ProductCreateRequest request) {
-        productSaveUseCase.createProduct(request.toProduct());
+        productSaveUseCase.createProduct(request);
     }
 
 }

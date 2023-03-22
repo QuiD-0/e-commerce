@@ -1,10 +1,15 @@
 package com.quid.commerce.product.domain;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Getter
 @Entity
@@ -19,17 +24,20 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private ProductGroup productGroup;
 
-    private Product(Long productId, String name, int price) {
+    private Product(Long productId, String name, int price, ProductGroup productGroup) {
         this.productId = productId;
         this.name = name;
         this.price = price;
+        this.productGroup = productGroup;
     }
 
-    public static Product create(Long productId, String name, int price) {
-        return new Product(productId, name, price);
+    public static Product create(Long productId, String name, int price, ProductGroup productGroup) {
+        Product product = new Product(productId, name, price, productGroup);
+        productGroup.addProduct(product);
+        return product;
     }
 
-    public String getProductGroupId() {
-        return productGroup.getProductGroupId();
+    public String getGroupCode() {
+        return productGroup.getGroupCode();
     }
 }

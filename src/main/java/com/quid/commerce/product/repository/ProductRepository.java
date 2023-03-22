@@ -1,14 +1,15 @@
 package com.quid.commerce.product.repository;
 
-import com.quid.commerce.product.controller.dto.SortedProductResponse;
 import com.quid.commerce.product.domain.Product;
+import com.quid.commerce.product.repository.jpa.JpaProductRepository;
+import com.quid.commerce.product.repository.redis.RedisProductRepository;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 public interface ProductRepository {
 
-    Set<SortedProductResponse> getZsetValue(String key);
+    Set getZsetValue(String key);
 
     void saveProduct(Product product);
 
@@ -20,14 +21,14 @@ public interface ProductRepository {
         private final JpaProductRepository jpaProductRepository;
 
         @Override
-        public Set<SortedProductResponse> getZsetValue(String key) {
-            return redisProductRepository.getZsetValue(key, SortedProductResponse.class);
+        public Set getZsetValue(String key) {
+            return redisProductRepository.getZsetValue(key);
         }
 
         @Override
         public void saveProduct(Product product) {
-            redisProductRepository.setZsetValue(product);
-            jpaProductRepository.save(product);
+            Product savedProduct = jpaProductRepository.save(product);
+            redisProductRepository.setZsetValue(savedProduct);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.quid.commerce.product.repository;
+package com.quid.commerce.product.repository.redis;
 
 import com.quid.commerce.component.RedisBase;
 import com.quid.commerce.product.domain.Product;
@@ -12,11 +12,11 @@ public class RedisProductRepository {
 
     private final RedisBase redisBase;
 
-    public <T> Set<T> getZsetValue(String key, Class<T> classType) {
-        return redisBase.getZsetData(key, classType);
+    public Set getZsetValue(String key) {
+        return redisBase.getZsetData(key);
     }
 
     public void setZsetValue(Product product) {
-        redisBase.setZsetData(product.getProductGroupId(),product.getProductId(), product.getPrice());
+        redisBase.setZsetData(product.getGroupCode(),product.getProductId(), product.getPrice());
     }
 }
