@@ -18,6 +18,8 @@ public interface ProductRepository {
 
     Optional<Product> findById(Long productId);
 
+    void deleteProduct(Product product);
+
     @Repository
     @RequiredArgsConstructor
     class ProductRepositoryImpl implements ProductRepository {
@@ -45,6 +47,12 @@ public interface ProductRepository {
         @Override
         public Optional<Product> findById(Long productId) {
             return jpaProductRepository.findById(productId);
+        }
+
+        @Override
+        public void deleteProduct(Product product) {
+            jpaProductRepository.delete(product);
+            redisProductRepository.deleteZsetValue(product);
         }
     }
 }

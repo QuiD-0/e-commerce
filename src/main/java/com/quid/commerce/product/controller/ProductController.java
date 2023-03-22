@@ -2,12 +2,15 @@ package com.quid.commerce.product.controller;
 
 import com.quid.commerce.product.controller.dto.ProductCreateRequest;
 import com.quid.commerce.product.controller.dto.UpdateProductPriceRequest;
+import com.quid.commerce.product.usecase.ProductDeleteUseCase;
 import com.quid.commerce.product.usecase.ProductFindUseCase;
 import com.quid.commerce.product.usecase.ProductSaveUseCase;
 import com.quid.commerce.product.usecase.ProductUpdateUseCase;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +25,7 @@ public class ProductController {
     private final ProductFindUseCase productFindUseCase;
     private final ProductSaveUseCase productSaveUseCase;
     private final ProductUpdateUseCase productUpdateUseCase;
+    private final ProductDeleteUseCase productDeleteUseCase;
 
     @GetMapping
     public Set getSortedProductList(String key) {
@@ -36,6 +40,11 @@ public class ProductController {
     @PutMapping
     public void updateProductPrice(@RequestBody UpdateProductPriceRequest request) {
         productUpdateUseCase.updateProduct(request);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable(name = "id") Long id) {
+        productDeleteUseCase.deleteProduct(id);
     }
 
 }

@@ -39,4 +39,8 @@ public class RedisBase {
     public void setZsetData(Object key, Object value, double score) {
         redisTemplate.opsForZSet().add(key, value, score);
     }
+
+    public void deleteZsetData(String groupCode, Long productId) {
+        redisTemplate.opsForZSet().remove(groupCode, productId);
+    }
 }
