@@ -24,15 +24,14 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private ProductGroup productGroup;
 
-    private Product(Long productId, String name, int price, ProductGroup productGroup) {
-        this.productId = productId;
+    private Product(String name, int price, ProductGroup productGroup) {
         this.name = name;
         this.price = price;
         this.productGroup = productGroup;
     }
 
-    public static Product create(Long productId, String name, int price, ProductGroup productGroup) {
-        Product product = new Product(productId, name, price, productGroup);
+    public static Product create(String name, int price, ProductGroup productGroup) {
+        Product product = new Product(name, price, productGroup);
         productGroup.addProduct(product);
         return product;
     }

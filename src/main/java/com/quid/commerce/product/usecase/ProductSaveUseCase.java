@@ -26,7 +26,7 @@ public interface ProductSaveUseCase {
             ProductGroup productGroup = productGroupRepository.findByGroupCode(request.groupCode())
                     .orElseGet(() -> productGroupRepository.save(ProductGroup.create(request.groupCode())));
 
-            Product product = Product.create(request.productId(), request.name(),request.price(), productGroup);
+            Product product = Product.create(request.name(),request.price(), productGroup);
             productRepository.saveProduct(product);
         }
 
