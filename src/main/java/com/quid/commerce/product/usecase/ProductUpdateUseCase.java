@@ -22,8 +22,9 @@ public interface ProductUpdateUseCase {
         public void updateProduct(UpdateProductPriceRequest request) {
             Product product = productRepository.findById(request.productId())
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+            product.updatePrice(request.price());
 
-            productRepository.updateProductPrice(product, request.price());
+            productRepository.saveProduct(product);
         }
 
     }

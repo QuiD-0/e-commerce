@@ -15,8 +15,6 @@ public interface ProductRepository {
 
     void saveProduct(Product product);
 
-    void updateProductPrice(Product product, int price);
-
     Optional<Product> findById(Long productId);
 
     void deleteProduct(Product product);
@@ -39,12 +37,6 @@ public interface ProductRepository {
         public void saveProduct(Product product) {
             Product savedProduct = jpaProductRepository.save(product);
             redisProductRepository.setZsetValue(savedProduct);
-        }
-
-        @Override
-        public void updateProductPrice(Product product, int price) {
-            product.updatePrice(price);
-            redisProductRepository.setZsetValue(product);
         }
 
         @Override
