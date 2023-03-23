@@ -43,4 +43,8 @@ public class Product {
     public void updatePrice(int price) {
         this.price = price;
     }
+
+    public String getProductGroupCode() {
+        return productGroup.getGroupCode();
+    }
 }

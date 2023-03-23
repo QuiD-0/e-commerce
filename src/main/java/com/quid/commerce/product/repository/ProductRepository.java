@@ -3,6 +3,7 @@ package com.quid.commerce.product.repository;
 import com.quid.commerce.product.domain.Product;
 import com.quid.commerce.product.repository.jpa.JpaProductRepository;
 import com.quid.commerce.product.repository.redis.RedisProductRepository;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ public interface ProductRepository {
     Optional<Product> findById(Long productId);
 
     void deleteProduct(Product product);
+
+    List<Product> searchByKeyword(String keyword);
 
     @Repository
     @RequiredArgsConstructor
@@ -53,6 +56,11 @@ public interface ProductRepository {
         public void deleteProduct(Product product) {
             jpaProductRepository.delete(product);
             redisProductRepository.deleteZsetValue(product);
+        }
+
+        @Override
+        public List<Product> searchByKeyword(String keyword) {
+            return jpaProductRepository.findByNameContaining(keyword);
         }
     }
 }
