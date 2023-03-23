@@ -24,7 +24,7 @@ public interface ProductSaveUseCase {
         @Override
         public void createProduct(ProductCreateRequest request) {
             ProductGroup productGroup = productGroupRepository.findByGroupCode(request.groupCode())
-                    .orElseGet(() -> productGroupRepository.save(ProductGroup.create(request.groupCode())));
+                    .orElseThrow(() -> new IllegalArgumentException("ProductGroup not found"));
 
             Product product = Product.create(request.name(),request.price(), productGroup);
             productRepository.saveProduct(product);

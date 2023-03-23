@@ -29,9 +29,9 @@ public class ProductController {
     private final ProductUpdateUseCase productUpdateUseCase;
     private final ProductDeleteUseCase productDeleteUseCase;
 
-    @GetMapping
-    public Set getSortedProductList(String key) {
-        return productFindUseCase.getSortedProductList(key);
+    @GetMapping("/sort/{code}")
+    public Set getSortedProductList(@PathVariable(name = "code") String code) {
+        return productFindUseCase.getSortedProductList(code);
     }
 
     @PostMapping
