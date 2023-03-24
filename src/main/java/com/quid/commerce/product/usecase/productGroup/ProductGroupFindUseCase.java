@@ -1,9 +1,10 @@
-package com.quid.commerce.product.usecase;
+package com.quid.commerce.product.usecase.productGroup;
 
 import com.quid.commerce.product.controller.dto.ProductGroupResponse;
 import com.quid.commerce.product.domain.ProductGroup;
 import com.quid.commerce.product.repository.ProductGroupRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ProductGroupFindUseCase {
 
     List<ProductGroupResponse> getGroupList();
+
+    Optional<ProductGroup> findProductGroup(String groupCode);
 
     @Service
     @RequiredArgsConstructor
@@ -24,6 +27,11 @@ public interface ProductGroupFindUseCase {
             return productGroupList.stream()
                     .map(ProductGroupResponse::of)
                     .toList();
+        }
+
+        @Override
+        public Optional<ProductGroup> findProductGroup(String groupCode) {
+            return productGroupRepository.findByGroupCode(groupCode);
         }
 
     }

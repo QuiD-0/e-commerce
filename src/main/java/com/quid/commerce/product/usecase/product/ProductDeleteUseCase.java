@@ -1,4 +1,4 @@
-package com.quid.commerce.product.usecase;
+package com.quid.commerce.product.usecase.product;
 
 import com.quid.commerce.product.domain.Product;
 import com.quid.commerce.product.repository.ProductRepository;
