@@ -1,6 +1,6 @@
 package com.quid.commerce.product.usecase.product;
 
-import com.quid.commerce.product.controller.dto.UpdateProductPriceRequest;
+import com.quid.commerce.product.controller.request.UpdateProductPriceRequest;
 import com.quid.commerce.product.domain.Product;
 import com.quid.commerce.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;

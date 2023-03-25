@@ -1,6 +1,6 @@
 package com.quid.commerce.product.usecase.productGroup;
 
-import com.quid.commerce.product.controller.dto.ProductGroupResponse;
+import com.quid.commerce.product.controller.response.ProductGroupResponse;
 import com.quid.commerce.product.domain.ProductGroup;
 import com.quid.commerce.product.repository.ProductGroupRepository;
 import java.util.List;

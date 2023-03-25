@@ -1,6 +1,6 @@
 package com.quid.commerce.product.usecase.product;
 
-import com.quid.commerce.product.controller.dto.ProductCreateRequest;
+import com.quid.commerce.product.controller.request.ProductCreateRequest;
 import com.quid.commerce.product.domain.Product;
 import com.quid.commerce.product.domain.ProductGroup;
 import com.quid.commerce.product.repository.ProductGroupRepository;

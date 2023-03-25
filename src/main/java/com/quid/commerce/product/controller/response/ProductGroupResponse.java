@@ -1,4 +1,4 @@
-package com.quid.commerce.product.controller.dto;
+package com.quid.commerce.product.controller.response;
 
 import com.quid.commerce.product.domain.ProductGroup;
 

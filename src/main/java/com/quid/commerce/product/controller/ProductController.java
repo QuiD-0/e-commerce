@@ -1,8 +1,8 @@
 package com.quid.commerce.product.controller;
 
-import com.quid.commerce.product.controller.dto.ProductCreateRequest;
-import com.quid.commerce.product.controller.dto.ProductSearchResponse;
-import com.quid.commerce.product.controller.dto.UpdateProductPriceRequest;
+import com.quid.commerce.product.controller.request.ProductCreateRequest;
+import com.quid.commerce.product.controller.response.ProductSearchResponse;
+import com.quid.commerce.product.controller.request.UpdateProductPriceRequest;
 import com.quid.commerce.product.usecase.product.ProductDeleteUseCase;
 import com.quid.commerce.product.usecase.product.ProductFindUseCase;
 import com.quid.commerce.product.usecase.product.ProductSaveUseCase;

@@ -3,6 +3,7 @@ package com.quid.commerce.product.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,5 +37,11 @@ public class Keyword {
 
     public void addProductGroup(ProductGroup productGroup) {
         productGroupList.add(productGroup);
+    }
+
+    public List<String> getGroupCodeList() {
+        return productGroupList.stream()
+                .map(ProductGroup::getGroupCode)
+                .toList();
     }
 }

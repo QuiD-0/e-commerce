@@ -1,4 +1,4 @@
-package com.quid.commerce.product.controller.dto;
+package com.quid.commerce.product.controller.request;
 
 public record KeywordSaveRequest(String keyword, String groupCode) {
 

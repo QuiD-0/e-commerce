@@ -1,7 +1,7 @@
 package com.quid.commerce.product.controller;
 
-import com.quid.commerce.product.controller.dto.ProductGroupCreateRequest;
-import com.quid.commerce.product.controller.dto.ProductGroupResponse;
+import com.quid.commerce.product.controller.request.ProductGroupCreateRequest;
+import com.quid.commerce.product.controller.response.ProductGroupResponse;
 import com.quid.commerce.product.usecase.productGroup.ProductGroupFindUseCase;
 import com.quid.commerce.product.usecase.productGroup.ProductGroupSaveUseCase;
 import java.util.List;
