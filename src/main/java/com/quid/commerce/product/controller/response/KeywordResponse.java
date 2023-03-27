@@ -11,7 +11,4 @@ public record KeywordResponse(String keyword, List<String> groupCodeList) {
                 .toList();
     }
 
-    public static List<KeywordResponse> of(Keyword keywords) {
-        return List.of(new KeywordResponse(keywords.getKeyword(), keywords.getGroupCodeList()));
-    }
 }

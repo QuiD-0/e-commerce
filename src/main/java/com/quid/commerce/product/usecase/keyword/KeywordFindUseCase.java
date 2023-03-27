@@ -29,8 +29,7 @@ public interface KeywordFindUseCase {
 
         @Override
         public List<KeywordResponse> searchKeyword(String keyword) {
-            Keyword keywords = keywordRepository.findByKeyword(keyword)
-                .orElseThrow(() -> new IllegalArgumentException("Keyword not found"));
+            List<Keyword> keywords = keywordRepository.searchKeyword(keyword);
             return KeywordResponse.of(keywords);
         }
     }

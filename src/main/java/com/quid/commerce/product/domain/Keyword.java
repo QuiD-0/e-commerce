@@ -1,5 +1,6 @@
 package com.quid.commerce.product.domain;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -23,7 +24,7 @@ public class Keyword {
     private Long id;
     @Column(unique = true)
     private String keyword;
-    @OneToMany(mappedBy = "keyword")
+    @OneToMany(cascade = ALL)
     private Set<ProductGroup> productGroupList;
 
     private Keyword(String keyword, Set<ProductGroup> productGroupList) {

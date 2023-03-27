@@ -1,9 +1,7 @@
 package com.quid.commerce.product.repository;
 
-import com.quid.commerce.product.controller.response.KeywordResponse;
 import com.quid.commerce.product.domain.Keyword;
 import com.quid.commerce.product.repository.jpa.JpaKeywordRepository;
-
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +14,8 @@ public interface KeywordRepository {
     Keyword save(Keyword keyword);
 
     List<Keyword> findAll();
+
+    List<Keyword> searchKeyword(String keyword);
 
     @Repository
     @RequiredArgsConstructor
@@ -36,6 +36,11 @@ public interface KeywordRepository {
         @Override
         public List<Keyword> findAll() {
             return jpaKeywordRepository.findAll();
+        }
+
+        @Override
+        public List<Keyword> searchKeyword(String keyword) {
+            return jpaKeywordRepository.findByKeywordContaining(keyword);
         }
     }
 }
