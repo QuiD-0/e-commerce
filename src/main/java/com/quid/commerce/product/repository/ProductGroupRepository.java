@@ -15,6 +15,8 @@ public interface ProductGroupRepository {
 
     List<ProductGroup> getGroupList();
 
+    List<ProductGroup> findGroupByCode(String groupCode);
+
     @Repository
     @RequiredArgsConstructor
     class ProductGroupRepositoryImpl implements ProductGroupRepository {
@@ -37,6 +39,11 @@ public interface ProductGroupRepository {
         @Override
         public List<ProductGroup> getGroupList() {
             return jpaProductGroupRepository.findAll();
+        }
+
+        @Override
+        public List<ProductGroup> findGroupByCode(String groupCode) {
+            return jpaProductGroupRepository.findByGroupCodeContaining(groupCode);
         }
 
     }
