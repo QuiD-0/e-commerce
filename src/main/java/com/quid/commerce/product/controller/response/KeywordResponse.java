@@ -1,7 +1,6 @@
 package com.quid.commerce.product.controller.response;
 
 import com.quid.commerce.product.domain.Keyword;
-
 import java.util.List;
 
 public record KeywordResponse(String keyword, List<String> groupCodeList) {
@@ -10,5 +9,9 @@ public record KeywordResponse(String keyword, List<String> groupCodeList) {
         return keywords.stream()
                 .map(keyword -> new KeywordResponse(keyword.getKeyword(), keyword.getGroupCodeList()))
                 .toList();
+    }
+
+    public static List<KeywordResponse> of(Keyword keywords) {
+        return List.of(new KeywordResponse(keywords.getKeyword(), keywords.getGroupCodeList()));
     }
 }
