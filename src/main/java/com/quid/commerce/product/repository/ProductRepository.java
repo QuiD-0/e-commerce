@@ -37,10 +37,15 @@ public interface ProductRepository {
         public void saveProduct(Product product) {
             Product savedProduct = jpaProductRepository.save(product);
             redisProductRepository.setZsetValue(savedProduct);
+            redisProductRepository.save(savedProduct.getProductId().toString(), savedProduct);
         }
 
         @Override
         public Optional<Product> findById(Long productId) {
+            Optional<Product> product = redisProductRepository.find(productId.toString());
+            if (product.isPresent()) {
+                return product;
+            }
             return jpaProductRepository.findById(productId);
         }
 
