@@ -7,8 +7,10 @@ import java.time.LocalDateTime;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Embeddable
 @NoArgsConstructor(access = PROTECTED)
 public class PaymentInfo {
