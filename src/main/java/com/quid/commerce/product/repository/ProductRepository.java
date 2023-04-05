@@ -37,7 +37,7 @@ public interface ProductRepository {
         public void saveProduct(Product product) {
             Product savedProduct = jpaProductRepository.save(product);
             redisProductRepository.setZsetValue(savedProduct);
-            redisProductRepository.save(savedProduct.getProductId().toString(), savedProduct);
+            redisProductRepository.save(savedProduct.getId().toString(), savedProduct);
         }
 
         @Override
