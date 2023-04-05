@@ -7,7 +7,7 @@ public record ProductResponse(Long productId, String name, int price) {
 
     public static List<ProductResponse> of(List<Product> value) {
         return value.stream()
-            .map(product -> new ProductResponse(product.getProductId(), product.getName(), product.getPrice()))
+            .map(product -> new ProductResponse(product.getId(), product.getName(), product.getPrice()))
             .toList();
     }
 }
