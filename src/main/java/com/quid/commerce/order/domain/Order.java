@@ -29,17 +29,17 @@ public class Order {
     @Column(name = "total_price")
     private Integer totalPrice;
     private OrdererInfo ordererInfo;
-    private PaymentHistory paymentHistory;
+    private PaymentInfo paymentInfo;
 
-    private Order(List<Product> product, OrdererInfo ordererInfo,PaymentHistory paymentHistory) {
+    private Order(List<Product> product, OrdererInfo ordererInfo) {
         this.orderNumber = SerialNumber.generate();
         this.product = product;
         this.ordererInfo = ordererInfo;
-        this.paymentHistory = paymentHistory;
+        this.paymentInfo = PaymentInfo.init();
         this.totalPrice = product.stream().mapToInt(Product::getPrice).sum();
     }
 
-    public static Order create(List<Product> product, OrdererInfo ordererInfo,PaymentHistory paymentHistory) {
-        return new Order(product, ordererInfo, paymentHistory);
+    public static Order create(List<Product> product, OrdererInfo ordererInfo) {
+        return new Order(product, ordererInfo);
     }
 }
