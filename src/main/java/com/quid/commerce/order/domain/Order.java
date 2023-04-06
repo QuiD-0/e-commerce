@@ -45,4 +45,14 @@ public class Order {
     public void pay(PaymentResponse paymentResponse) {
         this.paymentInfo.pay(paymentResponse);
     }
+
+    public void validatePayable() {
+        if (this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_COMPLETED) {
+            throw new IllegalStateException("이미 결제가 완료된 주문입니다.");
+        }
+    }
+
+    public boolean isPayed() {
+        return this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_COMPLETED;
+    }
 }

@@ -1,5 +1,6 @@
 package com.quid.commerce.order.usecase;
 
+import com.quid.commerce.delivery.kafka.DeliveryProducer;
 import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.repository.OrderRepository;
 import com.quid.commerce.payment.gateway.PaymentGateway;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderPay {
 
-    void pay(Long orderId);
+    void request(Long orderId);
 
     @Service
     @Transactional
@@ -19,15 +20,19 @@ public interface OrderPay {
     class OrderPayImpl implements OrderPay {
 
         private final OrderRepository orderRepository;
-
         private final PaymentGateway paymentGateway;
+        private final DeliveryProducer deliveryProducer;
 
         @Override
-        public void pay(Long orderId) {
+        public void request(Long orderId) {
             Order order = orderRepository.findOrder(orderId);
-            PaymentResponse paymentResponse = paymentGateway.payRequest(PaymentRequest.of(order));
+            order.validatePayable();
 
+            PaymentResponse paymentResponse = paymentGateway.payRequest(PaymentRequest.of(order));
             orderRepository.pay(order, paymentResponse);
+            if(order.isPayed()){
+                deliveryProducer.deliveryRequest(order);
+            }
         }
     }
 

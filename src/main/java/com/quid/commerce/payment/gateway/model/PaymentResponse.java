@@ -1,5 +1,7 @@
 package com.quid.commerce.payment.gateway.model;
 
-public record PaymentResponse() {
+import com.quid.commerce.order.domain.PayStatus;
+
+public record PaymentResponse(String paymentId, PayStatus paymentStatus) {
 
 }
