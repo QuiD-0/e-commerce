@@ -1,4 +1,4 @@
-package com.quid.commerce.delivery.consumer;
+package com.quid.commerce.delivery.event.consumer;
 
 public interface DeliveryConsumer {
 

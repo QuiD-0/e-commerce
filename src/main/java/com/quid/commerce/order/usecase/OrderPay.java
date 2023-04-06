@@ -1,6 +1,6 @@
 package com.quid.commerce.order.usecase;
 
-import com.quid.commerce.delivery.producer.DeliveryProducer;
+import com.quid.commerce.delivery.event.producer.DeliveryProducer;
 import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.repository.OrderRepository;
 import com.quid.commerce.payment.gateway.PaymentGateway;
@@ -30,6 +30,7 @@ public interface OrderPay {
 
             PaymentResponse paymentResponse = paymentGateway.payRequest(PaymentRequest.of(order));
             orderRepository.pay(order, paymentResponse);
+
             if(order.isPayed()){
                 deliveryProducer.deliveryRequest(order);
             }
