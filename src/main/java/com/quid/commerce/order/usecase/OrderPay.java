@@ -6,6 +6,7 @@ import com.quid.commerce.order.repository.OrderRepository;
 import com.quid.commerce.payment.gateway.PaymentGateway;
 import com.quid.commerce.payment.gateway.model.PaymentRequest;
 import com.quid.commerce.payment.gateway.model.PaymentResponse;
+import com.quid.commerce.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +20,10 @@ public interface OrderPay {
     @RequiredArgsConstructor
     class OrderPayImpl implements OrderPay {
 
-        private final OrderRepository orderRepository;
         private final PaymentGateway paymentGateway;
         private final DeliveryProducer deliveryProducer;
+        private final OrderRepository orderRepository;
+        private final ProductRepository productRepository;
 
         @Override
         public void request(Long orderId) {
@@ -33,6 +35,8 @@ public interface OrderPay {
 
             if(order.isPayed()){
                 deliveryProducer.deliveryRequest(order);
+            }else {
+                productRepository.rollbackStock(order);
             }
         }
     }

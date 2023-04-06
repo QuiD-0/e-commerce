@@ -1,6 +1,6 @@
 package com.quid.commerce.product.controller.request;
 
-public record ProductCreateRequest(String name, int price, String groupCode) {
+public record ProductCreateRequest(String name, Integer price, String groupCode, Integer stock) {
 
     public ProductCreateRequest {
         if (name == null) {

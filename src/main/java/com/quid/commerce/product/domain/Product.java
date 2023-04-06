@@ -27,15 +27,17 @@ public class Product {
     private Integer price;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private ProductGroup productGroup;
+    private Integer stock;
 
-    private Product(String name, int price, ProductGroup productGroup) {
+    private Product(String name, int price, ProductGroup productGroup, Integer stock) {
         this.name = name;
         this.price = price;
         this.productGroup = productGroup;
+        this.stock = stock;
     }
 
-    public static Product create(String name, int price, ProductGroup productGroup) {
-        Product product = new Product(name, price, productGroup);
+    public static Product create(String name, Integer price, ProductGroup productGroup, Integer stock) {
+        Product product = new Product(name, price, productGroup, stock);
         productGroup.addProduct(product);
         return product;
     }
@@ -50,5 +52,13 @@ public class Product {
 
     public String getProductGroupCode() {
         return productGroup.getGroupCode();
+    }
+
+    public void decreaseStock() {
+        this.stock--;
+    }
+
+    public void increaseStock() {
+        this.stock++;
     }
 }
