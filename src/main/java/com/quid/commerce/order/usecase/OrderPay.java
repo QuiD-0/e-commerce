@@ -1,6 +1,6 @@
 package com.quid.commerce.order.usecase;
 
-import com.quid.commerce.delivery.kafka.DeliveryProducer;
+import com.quid.commerce.delivery.producer.DeliveryProducer;
 import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.repository.OrderRepository;
 import com.quid.commerce.payment.gateway.PaymentGateway;
