@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import com.quid.commerce.component.SerialNumber;
+import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import com.quid.commerce.product.domain.Product;
 import java.util.List;
 import javax.persistence.Column;
@@ -26,20 +27,22 @@ public class Order {
     private String orderNumber;
     @OneToMany
     private List<Product> product;
-    @Column(name = "total_price")
-    private Integer totalPrice;
     private OrdererInfo ordererInfo;
     private PaymentInfo paymentInfo;
 
     private Order(List<Product> product, OrdererInfo ordererInfo) {
+        Integer amount = product.stream().mapToInt(Product::getPrice).sum();
         this.orderNumber = SerialNumber.generate();
         this.product = product;
         this.ordererInfo = ordererInfo;
-        this.paymentInfo = PaymentInfo.init();
-        this.totalPrice = product.stream().mapToInt(Product::getPrice).sum();
+        this.paymentInfo = PaymentInfo.init(amount);
     }
 
     public static Order create(List<Product> product, OrdererInfo ordererInfo) {
         return new Order(product, ordererInfo);
+    }
+
+    public void pay(PaymentResponse paymentResponse) {
+        this.paymentInfo.pay(paymentResponse);
     }
 }

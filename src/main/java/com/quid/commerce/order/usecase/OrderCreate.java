@@ -25,7 +25,6 @@ public interface OrderCreate {
         @Override
         public Order create(OrderCreateRequest request) {
             List<Product> foundProducts = productRepository.findProductsByIds(request.productIds());
-
             Order order = Order.create(foundProducts, request.ordererInfo());
             return orderRepository.save(order);
         }

@@ -1,0 +1,34 @@
+package com.quid.commerce.order.usecase;
+
+import com.quid.commerce.order.domain.Order;
+import com.quid.commerce.order.repository.OrderRepository;
+import com.quid.commerce.payment.gateway.PaymentGateway;
+import com.quid.commerce.payment.gateway.model.PaymentRequest;
+import com.quid.commerce.payment.gateway.model.PaymentResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+public interface OrderPay {
+
+    void pay(Long orderId);
+
+    @Service
+    @Transactional
+    @RequiredArgsConstructor
+    class OrderPayImpl implements OrderPay {
+
+        private final OrderRepository orderRepository;
+
+        private final PaymentGateway paymentGateway;
+
+        @Override
+        public void pay(Long orderId) {
+            Order order = orderRepository.findOrder(orderId);
+            PaymentResponse paymentResponse = paymentGateway.payRequest(PaymentRequest.of(order));
+
+            orderRepository.pay(order, paymentResponse);
+        }
+    }
+
+}
