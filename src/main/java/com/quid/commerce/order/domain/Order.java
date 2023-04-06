@@ -7,7 +7,6 @@ import com.quid.commerce.component.SerialNumber;
 import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import com.quid.commerce.product.domain.Product;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,7 +20,6 @@ import lombok.NoArgsConstructor;
 public class Order {
 
     @Id
-    @Column(name = "order_id")
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String orderNumber;

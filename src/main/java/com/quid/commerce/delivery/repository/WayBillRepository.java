@@ -24,7 +24,7 @@ public interface WayBillRepository {
 
         @Override
         public Optional<WayBill> findByTrackingNumber(String trackingNumber) {
-            return jpaWayBillRepository.findByTrackingNumber_TrackingNumber(trackingNumber);
+            return jpaWayBillRepository.findByTrackingNumber(trackingNumber);
         }
     }
 }

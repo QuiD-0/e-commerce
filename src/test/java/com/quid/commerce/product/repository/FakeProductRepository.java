@@ -1,5 +1,6 @@
 package com.quid.commerce.product.repository;
 
+import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.product.domain.Product;
 import java.util.List;
 import java.util.Optional;
@@ -35,5 +36,15 @@ public class FakeProductRepository implements ProductRepository{
     @Override
     public List<Product> findProductsByIds(List<Long> keySet) {
         return List.of();
+    }
+
+    @Override
+    public void decreaseStock(List<Product> foundProducts) {
+
+    }
+
+    @Override
+    public void rollbackStock(Order order) {
+
     }
 }

@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface JpaWayBillRepository extends JpaRepository<WayBill, Long> {
 
     WayBill save(WayBill wayBill);
-    Optional<WayBill> findByTrackingNumber_TrackingNumber(String trackingNumber);
+    Optional<WayBill> findByTrackingNumber(String trackingNumber);
 }
