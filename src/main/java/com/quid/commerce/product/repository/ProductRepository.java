@@ -21,6 +21,8 @@ public interface ProductRepository {
 
     List<Product> searchByKeyword(String keyword);
 
+    List<Product> findProductsByIds(List<Long> keySet);
+
     @Repository
     @RequiredArgsConstructor
     class ProductRepositoryImpl implements ProductRepository {
@@ -58,6 +60,11 @@ public interface ProductRepository {
         @Override
         public List<Product> searchByKeyword(String keyword) {
             return jpaProductRepository.findByNameContaining(keyword);
+        }
+
+        @Override
+        public List<Product> findProductsByIds(List<Long> keySet) {
+            return jpaProductRepository.findByIdIn(keySet);
         }
     }
 }

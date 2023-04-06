@@ -9,7 +9,7 @@ public class FakeProductRepository implements ProductRepository{
 
     @Override
     public Set getZsetValue(String key) {
-        return null;
+        return Set.of();
     }
 
     @Override
@@ -29,6 +29,11 @@ public class FakeProductRepository implements ProductRepository{
 
     @Override
     public List<Product> searchByKeyword(String keyword) {
-        return null;
+        return List.of();
+    }
+
+    @Override
+    public List<Product> findProductsByIds(List<Long> keySet) {
+        return List.of();
     }
 }
