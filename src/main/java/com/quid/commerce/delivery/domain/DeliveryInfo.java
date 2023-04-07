@@ -22,7 +22,7 @@ public class DeliveryInfo {
 
     private DeliveryInfo(String memo) {
         this.deliveryStartDate = LocalDateTime.now();
-        this.deliveryEndDate = LocalDateTime.MIN;
+        this.deliveryEndDate = null;
         this.memo = memo == null ? "" : memo;
     }
 

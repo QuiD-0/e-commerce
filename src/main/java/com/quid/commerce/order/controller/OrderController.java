@@ -5,6 +5,7 @@ import com.quid.commerce.order.usecase.OrderCreate;
 import com.quid.commerce.order.usecase.OrderPay;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,12 +18,12 @@ public class OrderController {
     private final OrderPay orderPay;
 
     @PostMapping
-    public void createOrder(OrderCreateRequest request) {
+    public void createOrder(@RequestBody OrderCreateRequest request) {
         orderCreate.create(request);
     }
 
     @PostMapping("/pay")
-    public void payOrder(Long orderId) {
+    public void payOrder(@RequestBody Long orderId) {
         orderPay.request(orderId);
     }
 

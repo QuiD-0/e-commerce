@@ -25,7 +25,7 @@ public class PaymentInfo {
     private PayStatus payStatus;
     private PaymentInfo(Integer paymentAmount) {
         this.paymentRequestDate = LocalDateTime.now();
-        this.paymentCompleteDate = LocalDateTime.MIN;
+        this.paymentCompleteDate = null;
         this.paymentAmount = paymentAmount;
         this.paymentId = SerialNumber.generate();
         this.payStatus = PayStatus.PAYMENT_WAITING;
