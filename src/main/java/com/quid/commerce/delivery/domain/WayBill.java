@@ -7,36 +7,30 @@ import static lombok.AccessLevel.PROTECTED;
 
 import com.quid.commerce.component.SerialNumber;
 import com.quid.commerce.order.domain.Order;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "way_bill")
 @NoArgsConstructor(access = PROTECTED)
 public class WayBill {
 
     @Id
-    @Column(name = "waybill_id")
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @Column(name = "tracking_number")
     private String trackingNumber;
-    @Column(name = "delivery_info")
     private DeliveryInfo deliveryInfo;
-    @Column(name = "sender")
     private Sender sender;
-    @Column(name = "receiver")
     private Receiver receiver;
-    @Column(name = "shipping_address")
     private ShippingAddress shippingAddress;
     @Enumerated(STRING)
-    @Column(name = "delivery_status")
     private DeliveryStatus deliveryStatus;
     @OneToOne(fetch = LAZY)
     private Order order;

@@ -1,7 +1,6 @@
 package com.quid.commerce.product.domain;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,12 +17,9 @@ import lombok.NoArgsConstructor;
 public class Product {
 
     @Id
-    @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "price")
     private Integer price;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private ProductGroup productGroup;

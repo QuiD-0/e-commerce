@@ -41,7 +41,7 @@ class OrderCreateTest {
         OrderCreateRequest request = new OrderCreateRequest(List.of(1L,2L), ordererInfo);
 
         Order order = orderCreate.create(request);
-        Assertions.assertEquals(ordererInfo.getName(), order.getOrdererInfo().getName());
+        Assertions.assertEquals(ordererInfo.getOrdererName(), order.getOrdererInfo().getOrdererName());
     }
 
 }
