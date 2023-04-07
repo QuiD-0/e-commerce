@@ -1,4 +1,4 @@
-package com.quid.commerce.mock;
+package com.quid.commerce.payment.mock;
 
 import com.quid.commerce.payment.gateway.model.PaymentRequest;
 import com.quid.commerce.payment.gateway.model.PaymentResponse;
