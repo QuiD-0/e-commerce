@@ -31,7 +31,7 @@ public interface OrderRepository {
 
         @Override
         public void pay(Order order, PaymentResponse paymentResponse) {
-            order.pay(paymentResponse);
+            order.getPaymentInfo().pay(paymentResponse);
             jpaOrderRepository.save(order);
         }
     }

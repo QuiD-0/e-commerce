@@ -20,6 +20,7 @@ public class PaymentInfo {
     private LocalDateTime paymentCompleteDate;
     private Integer paymentAmount;
     private String paymentId;
+    private Long orderId;
     @Enumerated(EnumType.STRING)
     private PayStatus payStatus;
     private PaymentInfo(Integer paymentAmount) {
@@ -38,5 +39,6 @@ public class PaymentInfo {
         this.paymentCompleteDate = LocalDateTime.now();
         this.payStatus = paymentResponse.paymentStatus();
         this.paymentId = paymentResponse.paymentId();
+        this.orderId = paymentResponse.orderId();
     }
 }

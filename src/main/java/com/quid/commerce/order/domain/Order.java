@@ -4,7 +4,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import com.quid.commerce.component.SerialNumber;
-import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import com.quid.commerce.product.domain.Product;
 import java.util.List;
 import javax.persistence.Entity;
@@ -41,11 +40,6 @@ public class Order {
     public static Order create(List<Product> product, OrdererInfo ordererInfo) {
         return new Order(product, ordererInfo);
     }
-
-    public void pay(PaymentResponse paymentResponse) {
-        this.paymentInfo.pay(paymentResponse);
-    }
-
     public void validatePayable() {
         if (this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_COMPLETED) {
             throw new IllegalStateException("이미 결제가 완료된 주문입니다.");
