@@ -1,6 +1,7 @@
 package com.quid.commerce.order.controller;
 
 import com.quid.commerce.order.controller.request.OrderCreateRequest;
+import com.quid.commerce.order.controller.request.OrderPayRequest;
 import com.quid.commerce.order.usecase.OrderCreate;
 import com.quid.commerce.order.usecase.OrderPay;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,8 @@ public class OrderController {
     }
 
     @PostMapping("/pay")
-    public void payOrder(@RequestBody Long orderId) {
-        orderPay.request(orderId);
+    public void payOrder(@RequestBody OrderPayRequest orderId) {
+        orderPay.request(orderId.orderId());
     }
 
 }

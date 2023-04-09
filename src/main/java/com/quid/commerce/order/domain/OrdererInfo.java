@@ -2,6 +2,7 @@ package com.quid.commerce.order.domain;
 
 import static lombok.AccessLevel.PROTECTED;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,14 +12,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = PROTECTED)
 public class OrdererInfo {
 
-    private String ordererName;
-    private String ordererPhoneNumber;
-    private String ordererEmail;
+    @Column(name = "orderer_name")
+    private String name;
 
-    private OrdererInfo(String ordererName, String ordererPhoneNumber, String ordererEmail) {
-        this.ordererName = ordererName;
-        this.ordererPhoneNumber = ordererPhoneNumber;
-        this.ordererEmail = ordererEmail;
+    @Column(name = "orderer_phone_number")
+    private String phoneNumber;
+
+    @Column(name = "orderer_email")
+    private String email;
+
+    private OrdererInfo(String name, String phoneNumber, String email) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
     public static OrdererInfo of(String name, String phoneNumber, String email) {

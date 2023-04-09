@@ -1,6 +1,6 @@
 package com.quid.commerce.order.usecase;
 
-import com.quid.commerce.delivery.event.producer.DeliveryProducer;
+import com.quid.commerce.delivery.message.producer.DeliveryProducer;
 import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.repository.OrderRepository;
 import com.quid.commerce.payment.gateway.PaymentGateway;

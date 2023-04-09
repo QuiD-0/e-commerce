@@ -1,4 +1,4 @@
-package com.quid.commerce.delivery.event.producer;
+package com.quid.commerce.delivery.message.producer;
 
 import com.quid.commerce.order.domain.Order;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +13,13 @@ public interface DeliveryProducer {
     @RequiredArgsConstructor
     class KafkaDeliveryProducer implements DeliveryProducer {
 
-        private final KafkaTemplate<String, Long> kafkaTemplate;
+        private final KafkaTemplate<Long, String> kafkaTemplate;
         //원하는토픽 지정
-        private String topic = "commerce";
+        private final String TOPIC = "commerce";
 
         @Override
         public void deliveryRequest(Order order) {
-            kafkaTemplate.send(topic, order.getOrderNumber(), order.getId());
+            kafkaTemplate.send(TOPIC, order.getId(), order.getOrderNumber());
         }
     }
 }
