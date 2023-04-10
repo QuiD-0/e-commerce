@@ -1,5 +1,6 @@
 package com.quid.commerce.order.domain;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -24,22 +25,22 @@ public class Order {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String orderNumber;
-    @OneToMany
-    private List<Product> product;
+    @OneToMany(mappedBy = "order", cascade = ALL)
+    private List<OrderProduct> products;
     private OrdererInfo ordererInfo;
     private PaymentInfo paymentInfo;
+    private Integer totalPrice;
 
-    private Order(List<Product> product, OrdererInfo ordererInfo) {
-        Integer amount = product.stream().mapToInt(Product::getPrice).sum();
+    private Order(OrdererInfo ordererInfo) {
         this.orderNumber = SerialNumber.generate();
-        this.product = product;
         this.ordererInfo = ordererInfo;
-        this.paymentInfo = PaymentInfo.init(amount);
+        this.paymentInfo = PaymentInfo.init();
     }
 
-    public static Order create(List<Product> product, OrdererInfo ordererInfo) {
-        return new Order(product, ordererInfo);
+    public static Order create(OrdererInfo ordererInfo) {
+        return new Order(ordererInfo);
     }
+
     public void validatePayable() {
         if (this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_COMPLETED) {
             throw new IllegalStateException("이미 결제가 완료된 주문입니다.");
@@ -48,5 +49,10 @@ public class Order {
 
     public boolean isPayed() {
         return this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_COMPLETED;
+    }
+
+    public void addProducts(List<Product> foundProducts) {
+        this.products = OrderProduct.create(this, foundProducts);
+        this.totalPrice = foundProducts.stream().mapToInt(Product::getPrice).sum();
     }
 }

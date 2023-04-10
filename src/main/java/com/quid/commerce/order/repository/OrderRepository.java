@@ -14,6 +14,7 @@ public interface OrderRepository {
 
     void pay(Order orderId, PaymentResponse paymentResponse);
 
+
     @Repository
     @RequiredArgsConstructor
     class OrderRepositoryImpl implements OrderRepository {
@@ -34,6 +35,7 @@ public interface OrderRepository {
             order.getPaymentInfo().pay(paymentResponse);
             jpaOrderRepository.save(order);
         }
+
     }
 
 }

@@ -26,7 +26,8 @@ public interface OrderCreate {
         public Order create(OrderCreateRequest request) {
             List<Product> foundProducts = productRepository.findProductsByIds(request.productIds());
             productRepository.decreaseStock(foundProducts);
-            Order order = Order.create(foundProducts, request.ordererInfo());
+            Order order = Order.create(request.ordererInfo());
+            order.addProducts(foundProducts);
             return orderRepository.save(order);
         }
 

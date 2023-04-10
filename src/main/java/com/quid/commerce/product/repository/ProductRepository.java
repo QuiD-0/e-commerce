@@ -64,7 +64,9 @@ public interface ProductRepository {
 
         @Override
         public List<Product> findProductsByIds(List<Long> keySet) {
-            return jpaProductRepository.findByIdIn(keySet);
+            keySet.forEach(id -> jpaProductRepository.findById(id).orElseThrow(()->
+                    new IllegalStateException("Product not found by id: " + id)));
+            return jpaProductRepository.findAllById(keySet);
         }
 
         @Override
@@ -77,7 +79,8 @@ public interface ProductRepository {
 
         @Override
         public void rollbackStock(Order order) {
-            order.getProduct().forEach(product -> {
+            order.getProducts().forEach(orderProduct -> {
+                Product product = orderProduct.getProduct();
                 product.increaseStock();
                 jpaProductRepository.save(product);
             });
