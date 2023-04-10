@@ -38,7 +38,7 @@ class OrderCreateTest {
     @DisplayName("주문 생성")
     void orderCreateTest() {
         OrdererInfo ordererInfo = OrdererInfo.of("홍길동", "010-1234-5678", "서울시 강남구");
-        OrderCreateRequest request = new OrderCreateRequest(List.of(1L,2L), ordererInfo);
+        OrderCreateRequest request = new OrderCreateRequest(List.of(1L), ordererInfo);
 
         Order order = orderCreate.create(request);
         Assertions.assertEquals(ordererInfo.getName(), order.getOrdererInfo().getName());

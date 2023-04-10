@@ -64,9 +64,11 @@ public interface ProductRepository {
 
         @Override
         public List<Product> findProductsByIds(List<Long> keySet) {
-            keySet.forEach(id -> jpaProductRepository.findById(id).orElseThrow(()->
-                    new IllegalStateException("Product not found by id: " + id)));
-            return jpaProductRepository.findAllById(keySet);
+            return keySet.stream()
+                .map(jpaProductRepository::findById)
+                .map(product -> product.orElseThrow(
+                    () -> new IllegalArgumentException("Product not found")))
+                .toList();
         }
 
         @Override
