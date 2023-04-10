@@ -2,6 +2,7 @@ package com.quid.commerce.delivery.domain;
 
 import static lombok.AccessLevel.PROTECTED;
 
+import com.quid.commerce.order.domain.OrdererInfo;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import lombok.Getter;
@@ -18,17 +19,18 @@ public class Receiver {
     private String phone;
     @Column(name = "receiver_email")
     private String email;
-    @Column(name = "receiver_address")
-    private String address;
 
-    private Receiver(String name, String phone, String email, String address) {
+    private Receiver(String name, String phone, String email) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
     }
 
-    public static Receiver of(String name, String phone, String email, String address) {
-        return new Receiver(name, phone, email, address);
+    public static Receiver of(String name, String phone, String email) {
+        return new Receiver(name, phone, email);
+    }
+
+    public static Receiver of(OrdererInfo ordererInfo) {
+        return new Receiver(ordererInfo.getName(), ordererInfo.getPhoneNumber(), ordererInfo.getEmail());
     }
 }

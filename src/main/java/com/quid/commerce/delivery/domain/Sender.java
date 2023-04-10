@@ -31,4 +31,7 @@ public class Sender {
         return new Sender(name, phone, email, address);
     }
 
+    public static Sender openMarket() {
+        return new Sender("오픈마켓", "010-1234-5678", "market@naver.com", "서울시 강남구");
+    }
 }

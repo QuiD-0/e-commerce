@@ -21,6 +21,7 @@ public class OrdererInfo {
     @Column(name = "orderer_email")
     private String email;
 
+
     private OrdererInfo(String name, String phoneNumber, String email) {
         this.name = name;
         this.phoneNumber = phoneNumber;

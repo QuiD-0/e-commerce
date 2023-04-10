@@ -26,8 +26,8 @@ public interface DeliveryCreate {
             checkDelivery(orderNumber);
 
             Order order = orderRepository.findOrder(orderNumber);
-            Sender sender = Sender.of("오픈마켓", "010-1234-5678", "market@naver.com", "서울시 강남구");
-            Receiver receiver = Receiver.of("이재웅", "010-1234-5678", "wodnd101@naver.com", "경기도 용인시");
+            Sender sender = Sender.openMarket();
+            Receiver receiver = Receiver.of(order.getOrdererInfo());
 
             WayBill wayBill = WayBill.publish(sender, receiver, "경기도 용인시", "문앞에 두고 가주세요", order);
             wayBillRepository.save(wayBill);
