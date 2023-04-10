@@ -7,6 +7,7 @@ import static lombok.AccessLevel.PROTECTED;
 import com.quid.commerce.component.SerialNumber;
 import com.quid.commerce.product.domain.Product;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,15 +31,18 @@ public class Order {
     private OrdererInfo ordererInfo;
     private PaymentInfo paymentInfo;
     private Integer totalPrice;
+    @Column(unique = true)
+    private String idempotencyKey;
 
-    private Order(OrdererInfo ordererInfo) {
+    private Order(OrdererInfo ordererInfo, String idempotencyKey) {
         this.orderNumber = SerialNumber.generate();
         this.ordererInfo = ordererInfo;
         this.paymentInfo = PaymentInfo.init();
+        this.idempotencyKey = idempotencyKey;
     }
 
-    public static Order create(OrdererInfo ordererInfo) {
-        return new Order(ordererInfo);
+    public static Order create(OrdererInfo ordererInfo, String idempotencyKey) {
+        return new Order(ordererInfo, idempotencyKey);
     }
 
     public void validatePayable() {

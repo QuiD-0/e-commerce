@@ -3,7 +3,7 @@ package com.quid.commerce.order.controller.request;
 import com.quid.commerce.order.domain.OrdererInfo;
 import java.util.List;
 
-public record OrderCreateRequest(List<Long> productIds, OrdererInfo ordererInfo) {
+public record OrderCreateRequest(List<Long> productIds, OrdererInfo ordererInfo, String idempotencyKey) {
 
     public OrderCreateRequest {
         if (productIds == null) {

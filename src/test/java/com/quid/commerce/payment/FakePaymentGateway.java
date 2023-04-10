@@ -10,6 +10,6 @@ public class FakePaymentGateway implements PaymentGateway {
 
     @Override
     public PaymentResponse payRequest(PaymentRequest paymentRequest) {
-        return new PaymentResponse("fakePaymentId", PAYMENT_COMPLETED, 1L);
+        return new PaymentResponse("fakePaymentId", PAYMENT_COMPLETED, 1L, 10000);
     }
 }

@@ -1,5 +1,6 @@
 package com.quid.commerce.order.usecase;
 
+import com.quid.commerce.component.SerialNumber;
 import com.quid.commerce.order.controller.request.OrderCreateRequest;
 import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.domain.OrdererInfo;
@@ -30,7 +31,7 @@ class OrderCreateTest {
     void orderCreateFailTest() {
 
         Assertions.assertThrows(IllegalArgumentException.class,
-            () -> orderCreate.create(new OrderCreateRequest(null, null))
+            () -> orderCreate.create(new OrderCreateRequest(null, null, null))
         );
     }
 
@@ -38,7 +39,8 @@ class OrderCreateTest {
     @DisplayName("주문 생성")
     void orderCreateTest() {
         OrdererInfo ordererInfo = OrdererInfo.of("홍길동", "010-1234-5678", "서울시 강남구");
-        OrderCreateRequest request = new OrderCreateRequest(List.of(1L), ordererInfo);
+        String key = SerialNumber.generate();
+        OrderCreateRequest request = new OrderCreateRequest(List.of(1L), ordererInfo, key);
 
         Order order = orderCreate.create(request);
         Assertions.assertEquals(ordererInfo.getName(), order.getOrdererInfo().getName());

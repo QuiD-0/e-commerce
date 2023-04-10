@@ -34,5 +34,6 @@ public class PaymentInfo {
         this.paymentCompleteDate = LocalDateTime.now();
         this.payStatus = paymentResponse.paymentStatus();
         this.paymentId = paymentResponse.paymentId();
+        this.paymentAmount = paymentResponse.paymentAmount();
     }
 }
