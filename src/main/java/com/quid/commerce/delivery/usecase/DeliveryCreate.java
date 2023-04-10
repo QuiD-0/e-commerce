@@ -30,6 +30,7 @@ public interface DeliveryCreate {
             Receiver receiver = Receiver.of(order.getOrdererInfo());
 
             WayBill wayBill = WayBill.publish(sender, receiver, "경기도 용인시", "문앞에 두고 가주세요", order);
+            order.delivering();
             wayBillRepository.save(wayBill);
         }
 

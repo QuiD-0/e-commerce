@@ -18,6 +18,7 @@ public class PaymentInfo {
     private String paymentId;
     @Enumerated(EnumType.STRING)
     private PayStatus payStatus;
+
     public PaymentInfo() {
         this.paymentRequestDate = LocalDateTime.now();
         this.paymentCompleteDate = null;

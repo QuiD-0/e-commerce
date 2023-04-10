@@ -1,5 +1,6 @@
 package com.quid.commerce.payment.gateway;
 
+import com.quid.commerce.payment.gateway.model.PayCancelRequest;
 import com.quid.commerce.payment.gateway.model.PaymentRequest;
 import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,4 +13,6 @@ public interface PaymentGateway {
     @PostMapping
     PaymentResponse payRequest(@RequestBody PaymentRequest paymentRequest);
 
+    @PostMapping
+    void cancelRequest(@RequestBody PayCancelRequest cancelRequest);
 }
