@@ -14,7 +14,6 @@ public interface DeliveryProducer {
     class KafkaDeliveryProducer implements DeliveryProducer {
 
         private final KafkaTemplate<Long, String> kafkaTemplate;
-        //원하는토픽 지정
         private final String TOPIC = "commerce";
 
         @Override

@@ -11,6 +11,7 @@ public interface OrderRepository {
     Order save(Order order);
 
     Order findOrder(Long orderId);
+    Order findOrder(String orderNumber);
 
     void pay(Order orderId, PaymentResponse paymentResponse);
 
@@ -28,6 +29,11 @@ public interface OrderRepository {
         @Override
         public Order findOrder(Long orderId) {
             return jpaOrderRepository.findById(orderId).orElseThrow(IllegalStateException::new);
+        }
+
+        @Override
+        public Order findOrder(String orderNumber) {
+            return jpaOrderRepository.findByOrderNumber(orderNumber).orElseThrow(IllegalStateException::new);
         }
 
         @Override

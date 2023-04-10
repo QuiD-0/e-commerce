@@ -12,6 +12,8 @@ public interface WayBillRepository {
 
     Optional<WayBill> findByTrackingNumber(String trackingNumber);
 
+    Optional<WayBill> findByOrder_Id(Long id);
+
     @Repository
     @RequiredArgsConstructor
     class WayBillRepositoryImpl implements WayBillRepository{
@@ -25,6 +27,11 @@ public interface WayBillRepository {
         @Override
         public Optional<WayBill> findByTrackingNumber(String trackingNumber) {
             return jpaWayBillRepository.findByTrackingNumber(trackingNumber);
+        }
+
+        @Override
+        public Optional<WayBill> findByOrder_Id(Long id) {
+            return jpaWayBillRepository.findByOrder_Id(id);
         }
     }
 }

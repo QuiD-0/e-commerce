@@ -7,6 +7,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 import com.quid.commerce.component.SerialNumber;
 import com.quid.commerce.order.domain.Order;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class WayBill {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String trackingNumber;
     private DeliveryInfo deliveryInfo;
     private Sender sender;
@@ -44,7 +46,7 @@ public class WayBill {
         this.order = order;
     }
 
-    public static WayBill of(Sender sender, Receiver receiver, String shippingAddress, String memo, Order order) {
+    public static WayBill publish(Sender sender, Receiver receiver, String shippingAddress, String memo, Order order) {
         return new WayBill(memo, sender, receiver, shippingAddress, order);
     }
 }

@@ -8,4 +8,6 @@ public interface JpaWayBillRepository extends JpaRepository<WayBill, Long> {
 
     WayBill save(WayBill wayBill);
     Optional<WayBill> findByTrackingNumber(String trackingNumber);
+
+    Optional<WayBill> findByOrder_Id(Long id);
 }
