@@ -1,6 +1,7 @@
 package com.quid.commerce.order.repository;
 
 import com.quid.commerce.order.domain.Order;
+import java.util.List;
 
 public class FakeOrderRepository implements OrderRepository{
 
@@ -16,6 +17,11 @@ public class FakeOrderRepository implements OrderRepository{
 
     @Override
     public Order findOrder(String orderNumber) {
+        return null;
+    }
+
+    @Override
+    public List<Order> findByOrderer(String ordererName) {
         return null;
     }
 

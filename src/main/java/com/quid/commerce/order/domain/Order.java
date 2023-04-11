@@ -11,6 +11,7 @@ import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import com.quid.commerce.product.domain.Product;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -65,10 +66,6 @@ public class Order {
         products.forEach(OrderProduct::cancel);
     }
 
-    public void delivering() {
-        this.orderStatus = OrderStatus.DELIVERING;
-    }
-
     public String paymentId() {
         return this.paymentInfo.getPaymentId();
     }
@@ -76,4 +73,26 @@ public class Order {
     public void pay(PaymentResponse paymentResponse) {
         paymentInfo.pay(paymentResponse);
     }
+
+    public void complete() {
+        this.orderStatus = OrderStatus.COMPLETE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Order order = (Order) o;
+        return Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }

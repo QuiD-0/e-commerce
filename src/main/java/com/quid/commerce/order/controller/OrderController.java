@@ -7,6 +7,7 @@ import com.quid.commerce.order.usecase.OrderCancel;
 import com.quid.commerce.order.usecase.OrderCreate;
 import com.quid.commerce.order.usecase.OrderInfo;
 import com.quid.commerce.order.usecase.OrderPay;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,11 @@ public class OrderController {
     @GetMapping("/info/{orderId}")
     public OrderInfoResponse getOrderInfo(@PathVariable Long orderId) {
         return orderInfo.getInfo(orderId);
+    }
+
+    @GetMapping("/list/{ordererName}")
+    public List<OrderInfoResponse> getOrderList(@PathVariable String ordererName) {
+        return orderInfo.getInfo(ordererName);
     }
 
 }

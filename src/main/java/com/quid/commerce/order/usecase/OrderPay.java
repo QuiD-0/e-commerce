@@ -31,6 +31,7 @@ public interface OrderPay {
             order.pay(paymentResponse);
 
             if(paymentResponse.payComplete()){
+                order.complete();
                 deliveryProducer.deliveryRequest(order);
             }
 
