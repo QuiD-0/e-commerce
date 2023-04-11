@@ -6,7 +6,7 @@ import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.domain.OrdererInfo;
 import com.quid.commerce.order.repository.FakeOrderRepository;
 import com.quid.commerce.order.repository.OrderRepository;
-import com.quid.commerce.order.usecase.OrderCreate.OrderCreateImpl;
+import com.quid.commerce.order.usecase.OrderCreate.OrderCreateUseCase;
 import com.quid.commerce.product.repository.FakeProductRepository;
 import com.quid.commerce.product.repository.ProductRepository;
 import java.util.List;
@@ -23,7 +23,7 @@ class OrderCreateTest {
     void setUp() {
         OrderRepository orderRepository = new FakeOrderRepository();
         ProductRepository productRepository = new FakeProductRepository();
-        orderCreate = new OrderCreateImpl(orderRepository, productRepository);
+        orderCreate = new OrderCreateUseCase(orderRepository, productRepository);
     }
 
     @Test

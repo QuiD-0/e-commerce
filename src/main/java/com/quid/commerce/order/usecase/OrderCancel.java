@@ -7,12 +7,14 @@ import com.quid.commerce.payment.gateway.PaymentGateway;
 import com.quid.commerce.payment.gateway.model.PayCancelRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderCancel {
 
     void cancel(Long orderId);
 
     @Service
+    @Transactional
     @RequiredArgsConstructor
     class OrderCancelUseCase implements OrderCancel {
 

@@ -17,7 +17,7 @@ public interface OrderCreate {
     @Service
     @Transactional
     @RequiredArgsConstructor
-    class OrderCreateImpl implements OrderCreate {
+    class OrderCreateUseCase implements OrderCreate {
 
         private final OrderRepository orderRepository;
         private final ProductRepository productRepository;

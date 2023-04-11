@@ -1,6 +1,5 @@
 package com.quid.commerce.order.domain;
 
-import com.quid.commerce.component.SerialNumber;
 import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import java.time.LocalDateTime;
 import javax.persistence.Embeddable;
@@ -23,7 +22,7 @@ public class PaymentInfo {
         this.paymentRequestDate = LocalDateTime.now();
         this.paymentCompleteDate = null;
         this.paymentAmount = 0;
-        this.paymentId = SerialNumber.generate();
+        this.paymentId = "";
         this.payStatus = PayStatus.PAYMENT_WAITING;
     }
 

@@ -18,7 +18,7 @@ public interface OrderPay {
     @Service
     @Transactional
     @RequiredArgsConstructor
-    class OrderPayImpl implements OrderPay {
+    class OrderPayUseCase implements OrderPay {
 
         private final PaymentGateway paymentGateway;
         private final DeliveryProducer deliveryProducer;
