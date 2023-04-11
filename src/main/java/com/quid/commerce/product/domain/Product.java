@@ -50,11 +50,12 @@ public class Product {
         return productGroup.getGroupCode();
     }
 
-    public void decreaseStock() {
+    public Product decreaseStock() {
         if(this.stock == 0) {
             throw new IllegalStateException("재고가 없습니다.");
         }
         this.stock--;
+        return this;
     }
 
     public void increaseStock() {

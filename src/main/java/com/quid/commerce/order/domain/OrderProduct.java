@@ -37,6 +37,7 @@ public class OrderProduct {
 
     public static List<OrderProduct> create(Order order, List<Product> foundProducts) {
         return foundProducts.stream()
+            .map(Product::decreaseStock)
             .map(product -> new OrderProduct(order, product))
             .toList();
     }

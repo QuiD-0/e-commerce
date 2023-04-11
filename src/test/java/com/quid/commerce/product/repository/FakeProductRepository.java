@@ -39,11 +39,6 @@ public class FakeProductRepository implements ProductRepository{
     }
 
     @Override
-    public void decreaseStock(List<Product> foundProducts) {
-
-    }
-
-    @Override
     public void rollbackStock(Order order) {
 
     }

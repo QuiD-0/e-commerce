@@ -24,8 +24,6 @@ public interface ProductRepository {
 
     List<Product> findProductsByIds(List<Long> keySet);
 
-    void decreaseStock(List<Product> foundProducts);
-
     void rollbackStock(Order order);
 
     @Repository
@@ -69,14 +67,6 @@ public interface ProductRepository {
                 .map(product -> product.orElseThrow(
                     () -> new IllegalArgumentException("Product not found")))
                 .toList();
-        }
-
-        @Override
-        public void decreaseStock(List<Product> foundProducts) {
-            foundProducts.forEach(product -> {
-                product.decreaseStock();
-                jpaProductRepository.save(product);
-            });
         }
 
         @Override

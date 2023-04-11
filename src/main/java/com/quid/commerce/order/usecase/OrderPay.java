@@ -33,7 +33,7 @@ public interface OrderPay {
             PaymentResponse paymentResponse = paymentGateway.payRequest(PaymentRequest.of(order));
             orderRepository.pay(order, paymentResponse);
 
-            if(order.isPayed()){
+            if(paymentResponse.isPayed()){
                 deliveryProducer.deliveryRequest(order);
             }else {
                 productRepository.rollbackStock(order);

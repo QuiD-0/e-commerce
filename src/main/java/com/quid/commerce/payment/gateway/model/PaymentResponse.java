@@ -8,4 +8,8 @@ public record PaymentResponse(String paymentId, PayStatus paymentStatus, Long or
     public static PaymentResponse of(PaymentRequest request) {
         return new PaymentResponse(SerialNumber.generate(), PayStatus.PAYMENT_COMPLETED, request.orderId(), request.amount());
     }
+
+    public boolean isPayed() {
+        return paymentStatus == PayStatus.PAYMENT_COMPLETED;
+    }
 }

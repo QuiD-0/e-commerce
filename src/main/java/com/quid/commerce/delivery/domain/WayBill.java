@@ -49,4 +49,8 @@ public class WayBill {
     public static WayBill publish(Sender sender, Receiver receiver, String shippingAddress, String memo, Order order) {
         return new WayBill(memo, sender, receiver, shippingAddress, order);
     }
+
+    public String shippingAddress(){
+        return shippingAddress.getShippingAddress();
+    }
 }

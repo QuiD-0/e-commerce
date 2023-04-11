@@ -5,6 +5,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import com.quid.commerce.component.SerialNumber;
+import com.quid.commerce.order.controller.request.OrderCreateRequest;
 import com.quid.commerce.product.domain.Product;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,32 +41,25 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    private Order(OrdererInfo ordererInfo, String idempotencyKey) {
+    private Order(OrdererInfo ordererInfo, String idempotencyKey, List<Product> foundProducts) {
         this.orderNumber = SerialNumber.generate();
         this.ordererInfo = ordererInfo;
         this.paymentInfo = PaymentInfo.init();
         this.idempotencyKey = idempotencyKey;
         this.createdAt = LocalDateTime.now();
         this.orderStatus = OrderStatus.CREATED;
+        this.products = OrderProduct.create(this, foundProducts);
+        this.totalPrice = foundProducts.stream().mapToInt(Product::getPrice).sum();
     }
 
-    public static Order create(OrdererInfo ordererInfo, String idempotencyKey) {
-        return new Order(ordererInfo, idempotencyKey);
+    public static Order create(OrderCreateRequest request, List<Product> foundProducts ) {
+        return new Order(request.ordererInfo(), request.idempotencyKey(), foundProducts);
     }
 
     public void validatePayable() {
         if (this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_COMPLETED) {
             throw new IllegalStateException("이미 결제가 완료된 주문입니다.");
         }
-    }
-
-    public boolean isPayed() {
-        return this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_COMPLETED;
-    }
-
-    public void addProducts(List<Product> foundProducts) {
-        this.products = OrderProduct.create(this, foundProducts);
-        this.totalPrice = foundProducts.stream().mapToInt(Product::getPrice).sum();
     }
 
     public boolean isCanceled() {
