@@ -9,7 +9,7 @@ public record PaymentResponse(String paymentId, PayStatus paymentStatus, Long or
         return new PaymentResponse(SerialNumber.generate(), PayStatus.PAYMENT_COMPLETED, request.orderId(), request.amount());
     }
 
-    public boolean isPayed() {
+    public boolean payComplete() {
         return paymentStatus == PayStatus.PAYMENT_COMPLETED;
     }
 }

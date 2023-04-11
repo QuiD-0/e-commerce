@@ -2,7 +2,6 @@ package com.quid.commerce.order.repository;
 
 import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.repository.jpa.JpaOrderRepository;
-import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -12,10 +11,6 @@ public interface OrderRepository {
 
     Order findOrder(Long orderId);
     Order findOrder(String orderNumber);
-
-    void pay(Order orderId, PaymentResponse paymentResponse);
-
-
 
     @Repository
     @RequiredArgsConstructor
@@ -37,11 +32,6 @@ public interface OrderRepository {
             return jpaOrderRepository.findByOrderNumber(orderNumber).orElseThrow(IllegalStateException::new);
         }
 
-        @Override
-        public void pay(Order order, PaymentResponse paymentResponse) {
-            order.getPaymentInfo().pay(paymentResponse);
-            jpaOrderRepository.save(order);
-        }
 
     }
 

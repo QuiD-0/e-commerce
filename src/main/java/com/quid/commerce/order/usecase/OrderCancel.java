@@ -27,6 +27,7 @@ public interface OrderCancel {
 
             PayCancelRequest request = PayCancelRequest.of(order.paymentId());
             paymentGateway.cancelRequest(request);
+            orderRepository.save(order);
         }
     }
 

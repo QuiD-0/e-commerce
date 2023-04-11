@@ -7,6 +7,7 @@ import static lombok.AccessLevel.PROTECTED;
 import com.quid.commerce.component.SerialNumber;
 import com.quid.commerce.order.controller.request.OrderCreateRequest;
 import com.quid.commerce.order.domain.validate.OrderCancelPipe;
+import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import com.quid.commerce.product.domain.Product;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -64,17 +65,15 @@ public class Order {
         products.forEach(OrderProduct::cancel);
     }
 
-    public void validatePayable() {
-        if (this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_COMPLETED) {
-            throw new IllegalStateException("이미 결제가 완료된 주문입니다.");
-        }
-    }
-
     public void delivering() {
         this.orderStatus = OrderStatus.DELIVERING;
     }
 
     public String paymentId() {
         return this.paymentInfo.getPaymentId();
+    }
+
+    public void pay(PaymentResponse paymentResponse) {
+        paymentInfo.pay(paymentResponse);
     }
 }

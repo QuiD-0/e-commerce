@@ -1,6 +1,5 @@
 package com.quid.commerce.product.repository;
 
-import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.product.domain.Product;
 import com.quid.commerce.product.repository.jpa.JpaProductRepository;
 import com.quid.commerce.product.repository.redis.RedisProductRepository;
@@ -23,8 +22,6 @@ public interface ProductRepository {
     List<Product> searchByKeyword(String keyword);
 
     List<Product> findProductsByIds(List<Long> keySet);
-
-    void rollbackStock(Order order);
 
     @Repository
     @RequiredArgsConstructor
@@ -67,15 +64,6 @@ public interface ProductRepository {
                 .map(product -> product.orElseThrow(
                     () -> new IllegalArgumentException("Product not found")))
                 .toList();
-        }
-
-        @Override
-        public void rollbackStock(Order order) {
-            order.getProducts().forEach(orderProduct -> {
-                Product product = orderProduct.getProduct();
-                product.increaseStock();
-                jpaProductRepository.save(product);
-            });
         }
     }
 }
