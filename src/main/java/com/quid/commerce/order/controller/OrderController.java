@@ -3,6 +3,7 @@ package com.quid.commerce.order.controller;
 import com.quid.commerce.order.controller.request.OrderCreateRequest;
 import com.quid.commerce.order.controller.request.OrderPayRequest;
 import com.quid.commerce.order.controller.response.OrderInfoResponse;
+import com.quid.commerce.order.usecase.OrderCancel;
 import com.quid.commerce.order.usecase.OrderCreate;
 import com.quid.commerce.order.usecase.OrderInfo;
 import com.quid.commerce.order.usecase.OrderPay;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     private final OrderCreate orderCreate;
+    private final OrderCancel orderCancel;
     private final OrderPay orderPay;
     private final OrderInfo orderInfo;
 
@@ -35,7 +37,7 @@ public class OrderController {
 
     @PostMapping("/cancel")
     public void cancelOrder(@RequestBody OrderPayRequest orderId) {
-        orderPay.request(orderId.orderId());
+        orderCancel.cancel(orderId.orderId());
     }
 
     @GetMapping("/info/{orderId}")

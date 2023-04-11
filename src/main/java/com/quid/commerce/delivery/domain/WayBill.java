@@ -36,7 +36,9 @@ public class WayBill {
     private DeliveryStatus deliveryStatus;
     @OneToOne(fetch = LAZY)
     private Order order;
-    private WayBill(String memo, Sender sender, Receiver receiver, String shippingAddress, Order order) {
+
+    private WayBill(String memo, Sender sender, Receiver receiver, String shippingAddress,
+        Order order) {
         this.trackingNumber = SerialNumber.generate();
         this.deliveryInfo = DeliveryInfo.of(memo);
         this.sender = sender;
@@ -46,11 +48,17 @@ public class WayBill {
         this.order = order;
     }
 
-    public static WayBill publish(Sender sender, Receiver receiver, String shippingAddress, String memo, Order order) {
+    public static WayBill publish(Sender sender, Receiver receiver, String shippingAddress,
+        String memo, Order order) {
         return new WayBill(memo, sender, receiver, shippingAddress, order);
     }
 
-    public String shippingAddress(){
-        return shippingAddress.getShippingAddress();
+    public static WayBill empty() {
+        return new WayBill();
+    }
+
+    public String shippingAddress() {
+        return shippingAddress == null ? null
+            : shippingAddress.getShippingAddress();
     }
 }

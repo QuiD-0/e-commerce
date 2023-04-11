@@ -12,10 +12,10 @@ public record OrderInfoResponse(String name, String orderNumber, String wayBillN
                                 DeliveryStatus deliveryStatus, String deliveryAddress,
                                 LocalDateTime orderDate) {
 
-    public static OrderInfoResponse of(WayBill wayBill, Order order){
+
+    public static OrderInfoResponse of(Order order, WayBill wayBill) {
         return new OrderInfoResponse(order.getOrdererInfo().getName(), order.getOrderNumber(), wayBill.getTrackingNumber(),
                 order.getOrderStatus(), order.getPaymentInfo().getPayStatus(), wayBill.getDeliveryStatus(),
                 wayBill.shippingAddress(), order.getCreatedAt());
     }
-
 }
