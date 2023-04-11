@@ -5,7 +5,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import com.quid.commerce.component.SerialNumber;
-import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import com.quid.commerce.product.domain.Product;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -70,7 +69,7 @@ public class Order {
     }
 
     public boolean isCanceled() {
-        return this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_CANCELLED;
+        return this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_CANCELED;
     }
 
     public boolean isThreeDaysPassed() {
@@ -83,6 +82,7 @@ public class Order {
 
     public void cancel() {
         this.orderStatus = OrderStatus.CANCELLED;
+        this.getPaymentInfo().cancel();
     }
 
     public void delivering() {

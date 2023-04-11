@@ -36,4 +36,8 @@ public class PaymentInfo {
         this.paymentId = paymentResponse.paymentId();
         this.paymentAmount = paymentResponse.paymentAmount();
     }
+
+    public void cancel() {
+        this.payStatus = PayStatus.PAYMENT_CANCELED;
+    }
 }

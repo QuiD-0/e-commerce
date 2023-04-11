@@ -13,6 +13,6 @@ public interface PaymentGateway {
     @PostMapping
     PaymentResponse payRequest(@RequestBody PaymentRequest paymentRequest);
 
-    @PostMapping
+    @PostMapping("/cancel")
     void cancelRequest(@RequestBody PayCancelRequest cancelRequest);
 }
