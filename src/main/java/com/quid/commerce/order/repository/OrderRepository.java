@@ -3,7 +3,6 @@ package com.quid.commerce.order.repository;
 import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.repository.jpa.JpaOrderRepository;
 import com.quid.commerce.payment.gateway.model.PaymentResponse;
-import com.quid.commerce.product.repository.jpa.JpaProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +15,6 @@ public interface OrderRepository {
 
     void pay(Order orderId, PaymentResponse paymentResponse);
 
-    void cancel(Order order);
 
 
     @Repository
@@ -43,12 +41,6 @@ public interface OrderRepository {
         public void pay(Order order, PaymentResponse paymentResponse) {
             order.getPaymentInfo().pay(paymentResponse);
             jpaOrderRepository.save(order);
-        }
-
-        @Override
-        public void cancel(Order order) {
-            order.getProducts().forEach(product -> product.getProduct().increaseStock());
-            order.cancel();
         }
 
     }

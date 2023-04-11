@@ -1,7 +1,6 @@
 package com.quid.commerce.order.usecase;
 
 import com.quid.commerce.order.domain.Order;
-import com.quid.commerce.order.domain.validate.OrderCancelPipe;
 import com.quid.commerce.order.repository.OrderRepository;
 import com.quid.commerce.payment.gateway.PaymentGateway;
 import com.quid.commerce.payment.gateway.model.PayCancelRequest;
@@ -24,11 +23,10 @@ public interface OrderCancel {
         @Override
         public void cancel(Long orderId) {
             Order order = orderRepository.findOrder(orderId);
-            OrderCancelPipe.check(order);
+            order.cancel();
 
-            PayCancelRequest request = PayCancelRequest.of(order.getPaymentInfo().getPaymentId());
+            PayCancelRequest request = PayCancelRequest.of(order.paymentId());
             paymentGateway.cancelRequest(request);
-            orderRepository.cancel(order);
         }
     }
 

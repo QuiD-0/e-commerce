@@ -6,6 +6,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 import com.quid.commerce.component.SerialNumber;
 import com.quid.commerce.order.controller.request.OrderCreateRequest;
+import com.quid.commerce.order.domain.validate.OrderCancelPipe;
 import com.quid.commerce.product.domain.Product;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -52,8 +53,15 @@ public class Order {
         this.totalPrice = foundProducts.stream().mapToInt(Product::getPrice).sum();
     }
 
-    public static Order create(OrderCreateRequest request, List<Product> foundProducts ) {
+    public static Order create(OrderCreateRequest request, List<Product> foundProducts) {
         return new Order(request.ordererInfo(), request.idempotencyKey(), foundProducts);
+    }
+
+    public void cancel() {
+        OrderCancelPipe.check(this);
+        this.orderStatus = OrderStatus.CANCELLED;
+        this.getPaymentInfo().cancel();
+        products.forEach(OrderProduct::cancel);
     }
 
     public void validatePayable() {
@@ -62,24 +70,11 @@ public class Order {
         }
     }
 
-    public boolean isCanceled() {
-        return this.paymentInfo.getPayStatus() == PayStatus.PAYMENT_CANCELED;
-    }
-
-    public boolean isThreeDaysPassed() {
-        return this.createdAt.plusDays(3).isBefore(LocalDateTime.now());
-    }
-
-    public boolean isPaymentStatusNotPaid() {
-        return this.paymentInfo.getPayStatus() != PayStatus.PAYMENT_COMPLETED;
-    }
-
-    public void cancel() {
-        this.orderStatus = OrderStatus.CANCELLED;
-        this.getPaymentInfo().cancel();
-    }
-
     public void delivering() {
         this.orderStatus = OrderStatus.DELIVERING;
+    }
+
+    public String paymentId() {
+        return this.paymentInfo.getPaymentId();
     }
 }

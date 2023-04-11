@@ -16,6 +16,11 @@ public class FakeOrderRepository implements OrderRepository{
     }
 
     @Override
+    public Order findOrder(String orderNumber) {
+        return null;
+    }
+
+    @Override
     public void pay(Order orderId, PaymentResponse paymentResponse) {
 
     }
