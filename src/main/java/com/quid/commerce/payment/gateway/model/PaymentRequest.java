@@ -1,10 +1,16 @@
 package com.quid.commerce.payment.gateway.model;
 
 import com.quid.commerce.order.domain.Order;
+import java.time.LocalDate;
 
-public record PaymentRequest(Long orderId, Integer amount, String ordererName, String ordererEmail) {
+public record PaymentRequest(String requestId, String identifier, Integer price, Card card) {
 
     public static PaymentRequest of(Order order) {
-        return new PaymentRequest(order.getId(), order.getTotalPrice(), order.getOrdererInfo().getName(), order.getOrdererInfo().getEmail());
+        return new PaymentRequest(order.getOrderNumber(), "commerce", order.getTotalPrice(), Card.fixture());
+    }
+    private record Card(String number, LocalDate expireDate, String cvc, String holderName) {
+        static Card fixture() {
+            return new Card("1234567890123456", LocalDate.of(2026, 12, 31), "628", "QuiD");
+        }
     }
 }

@@ -1,13 +1,9 @@
 package com.quid.commerce.payment.gateway.model;
 
-import com.quid.commerce.component.SerialNumber;
 import com.quid.commerce.order.domain.PayStatus;
+import java.time.LocalDate;
 
-public record PaymentResponse(String paymentId, PayStatus paymentStatus, Long orderId, Integer paymentAmount) {
-
-    public static PaymentResponse of(PaymentRequest request) {
-        return new PaymentResponse(SerialNumber.generate(), PayStatus.PAYMENT_COMPLETED, request.orderId(), request.amount());
-    }
+public record PaymentResponse(String requestId, LocalDate createdAt, String paymentId, PayStatus paymentStatus, Integer paymentAmount) {
 
     public boolean payComplete() {
         return paymentStatus == PayStatus.PAYMENT_COMPLETED;

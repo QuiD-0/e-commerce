@@ -74,10 +74,6 @@ public class Order {
         paymentInfo.pay(paymentResponse);
     }
 
-    public void complete() {
-        this.orderStatus = OrderStatus.COMPLETE;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
