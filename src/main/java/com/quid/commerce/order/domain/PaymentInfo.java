@@ -32,9 +32,9 @@ public class PaymentInfo {
 
     public void pay(PaymentResponse paymentResponse) {
         this.paymentCompleteDate = LocalDateTime.now();
-        this.payStatus = paymentResponse.paymentStatus();
+        this.payStatus = paymentResponse.payStatus();
         this.paymentId = paymentResponse.paymentId();
-        this.paymentAmount = paymentResponse.paymentAmount();
+        this.paymentAmount = paymentResponse.payAmount();
     }
 
     public void cancel() {
