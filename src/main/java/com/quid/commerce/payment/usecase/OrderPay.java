@@ -1,9 +1,9 @@
-package com.quid.commerce.order.usecase;
+package com.quid.commerce.payment.usecase;
 
 import com.quid.commerce.delivery.message.producer.DeliveryProducer;
 import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.repository.OrderRepository;
-import com.quid.commerce.payment.gateway.PaymentGateway;
+import com.quid.commerce.payment.gateway.out.PaymentGateway;
 import com.quid.commerce.payment.gateway.model.PaymentRequest;
 import com.quid.commerce.payment.gateway.model.PaymentResponse;
 import lombok.RequiredArgsConstructor;

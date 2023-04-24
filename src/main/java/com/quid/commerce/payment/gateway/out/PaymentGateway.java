@@ -1,4 +1,4 @@
-package com.quid.commerce.payment.gateway;
+package com.quid.commerce.payment.gateway.out;
 
 import com.quid.commerce.payment.gateway.model.PayCancelRequest;
 import com.quid.commerce.payment.gateway.model.PaymentRequest;

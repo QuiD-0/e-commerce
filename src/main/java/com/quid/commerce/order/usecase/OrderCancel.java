@@ -2,7 +2,7 @@ package com.quid.commerce.order.usecase;
 
 import com.quid.commerce.order.domain.Order;
 import com.quid.commerce.order.repository.OrderRepository;
-import com.quid.commerce.payment.gateway.PaymentGateway;
+import com.quid.commerce.payment.gateway.out.PaymentGateway;
 import com.quid.commerce.payment.gateway.model.PayCancelRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

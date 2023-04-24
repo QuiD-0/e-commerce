@@ -1,8 +1,8 @@
-package com.quid.commerce.order.controller.request;
+package com.quid.commerce.payment.gateway.model;
 
-public record OrderPayRequest(Long orderId) {
+public record PayRequest(Long orderId) {
 
-    public OrderPayRequest {
+    public PayRequest {
         if (orderId == null) {
             throw new IllegalArgumentException("orderId must not be null");
         }
