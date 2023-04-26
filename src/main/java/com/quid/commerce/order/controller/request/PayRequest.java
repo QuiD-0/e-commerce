@@ -1,4 +1,4 @@
-package com.quid.commerce.payment.gateway.model;
+package com.quid.commerce.order.controller.request;
 
 public record PayRequest(Long orderId) {
 
